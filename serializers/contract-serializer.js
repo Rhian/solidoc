@@ -94,7 +94,7 @@ module.exports = {
     const documentation = contractNode.documentation;
     const notice = documentationHelper.getNotice(documentation);
 
-    template = template.replace("{{ContractName}}", contract.contractName);
+    template = template.replace(/{{ContractName}}/g, contract.contractName);
     template = template.replace("{{ContractPath}}", getContractPath());
     template = template.replace("{{ContractTitle}}", getTitle());
     template = template.replace("{{ContractDescription}}", notice);

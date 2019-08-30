@@ -1,3 +1,10 @@
+---
+id: {{version}}-{{ContractName}}
+title: {{ContractName}}
+original_id: {{ContractName}}
+{{ContractPath}}
+---
+
 # {{ContractTitle}}
 
 {{ContractPath}}
@@ -56,9 +63,3 @@
 
 
 {{AllFunctions}}
-
-
-## Contracts
-
-
-{{AllContractsAnchor}}

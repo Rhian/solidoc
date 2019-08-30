@@ -37,7 +37,7 @@ function getConfig() {
   var config = readConfig();
   const args = process.argv;
 
-  if(args.length > 6) {
+  if(args.length > 7) {
     logger.error(`Invalid command ${process.argv.join(" ")}`);
     return;
   }
