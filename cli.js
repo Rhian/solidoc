@@ -47,6 +47,7 @@ function getConfig() {
     config.outputPath = args[3];
     config.noCompilation = (args[4] || "").toLowerCase().startsWith("t");
     config.language = args[5] || "en";
+    config.version = args[6];
   }
 
   config.pathToRoot = resolve(config.pathToRoot);
