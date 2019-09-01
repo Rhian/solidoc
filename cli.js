@@ -37,7 +37,7 @@ function getConfig() {
   var config = readConfig();
   const args = process.argv;
 
-  if(args.length > 7) {
+  if(args.length > 8) {
     logger.error(`Invalid command ${process.argv.join(" ")}`);
     return;
   }
@@ -48,6 +48,7 @@ function getConfig() {
     config.noCompilation = (args[4] || "").toLowerCase().startsWith("t");
     config.language = args[5] || "en";
     config.version = args[6];
+    config.ignorePattern = args[7]
   }
 
   config.pathToRoot = resolve(config.pathToRoot);
@@ -82,7 +83,7 @@ function begin() {
     fs.mkdirSync(config.outputPath);
   }
 
-  const contracts = parser.parse(buildDirectory);
+  const contracts = parser.parse(buildDirectory, config.ignorePattern);
   generator.serialize(contracts, config.outputPath);
 }
 
