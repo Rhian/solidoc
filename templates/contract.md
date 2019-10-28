@@ -2,7 +2,6 @@
 id: version-{{version}}-{{ContractName}}
 title: {{ContractName}}
 original_id: {{ContractName}}
-
 ---
 
 # {{ContractTitle}}
