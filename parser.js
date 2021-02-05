@@ -13,7 +13,7 @@ module.exports = {
     logger.info("Parsing %s. Ignoring %s", buildDirectory, ignorePattern);
     const contracts = [];
     const options = ignorePattern ? {
-      ignore: ignorePattern.split(',')
+      ignore: ignorePattern
     } : {}
 
     const files = glob.sync(buildDirectory + "/**/*.json", options);
