@@ -48,7 +48,7 @@ function getConfig() {
     config.noCompilation = (args[4] || "").toLowerCase().startsWith("t");
     config.language = args[5] || "en";
     config.version = args[6];
-    config.ignorePattern = args[7]
+    config.ignoreFiles = args[7]
   }
 
   config.pathToRoot = resolve(config.pathToRoot);
@@ -79,11 +79,12 @@ function begin() {
   }
 
   if(!fs.existsSync(config.outputPath)) {
-    logger.info("Create the directory for the output path: %s.");
+    logger.info("Create the directory for the output path: %s.", config.outputPath);
     fs.mkdirSync(config.outputPath);
   }
 
-  const contracts = parser.parse(buildDirectory, config.ignorePattern);
+  logger.info("Output directory: %s", config.outputPath);
+  const contracts = parser.parse(buildDirectory, config.ignoreFiles);
   generator.serialize(contracts, config.outputPath);
 }
 

@@ -104,6 +104,11 @@ module.exports = {
     template = template.replace("{{AllContractsAnchor}}", getAnchors().join("\n"));
     template = template.replace("{{ABI}}", getAbi());
     template = template.replace("{{version}}", global.config.version);
+    if (global.config.version) {
+      template = template.replace("{{versionDetail}}", ` - version: ${global.config.version}`);
+    } else {
+      template = template.replace("{{versionDetail}}", "");
+    }
 
     return constructorBuilder.build(contract, template);
   }

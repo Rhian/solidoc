@@ -29,7 +29,19 @@ module.exports = {
     }
 
     var baseContract = getBaseContract(superId);
-    builder.push(`[${baseContract.contractName}.${node.name}](${baseContract.contractName}.md#${node.name.toLowerCase()})`);
+
+    if (baseContract !== undefined) {
+      if(!baseContract.ignore) {
+        // If file is not ignored, then add link to file as well
+        builder.push(`[${baseContract.contractName}.${node.name}](${baseContract.contractName}.md#${node.name.toLowerCase()})`);
+      } else {
+        // Otherwise, show file name but do not link it (since it is ignored)
+        builder.push(`${baseContract.contractName}.${node.name}`);
+      }
+    } else {
+      // If file could not be found because of something else, show ?
+      builder.push("[?]");
+    }
 
     return builder.join("");
   }

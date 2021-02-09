@@ -1,6 +1,6 @@
 {
-  "name": "solidoc",
-  "version": "1.0.6",
+  "name": "@thinkanddev/solidoc",
+  "version": "2.0.0",
   "description": "Solidity Documentation Generator",
   "main": "cli.js",
   "scripts": {
@@ -32,11 +32,14 @@
     "monax"
   ],
   "author": "Binod Nirvan",
+  "contributors": [
+    "shanshi (https://github.com/shanshi)"
+  ],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/CYBRToken/solidoc",
+  "homepage": "https://github.com/Think-and-Dev/solidoc",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CYBRToken/solidoc"
+    "url": "git+https://github.com/Think-and-Dev/solidoc.git"
   },
   "dependencies": {
     "fs-extra": "^7.0.0",
@@ -46,5 +49,8 @@
     "pino-pretty": "^2.2.2",
     "require-all": "^3.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/Think-and-Dev/solidoc/issues"
+  }
 }

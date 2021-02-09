@@ -16,16 +16,29 @@ This command-line utility creates markdown-based documentation for your Solidity
 
 ## Getting Started
 
+**Global instalation**
+
 ```npm
 sudo npm install solidoc -g
 ```
 
+**Project instalation**
+
+```npm
+npm install solidoc
+```
+
 **CLI Arguments**
 
-1. Path to truffle project (or similar) root.
+1. Path to Truffle project (or similar) root.
 2. Path to generate documentation to.
 3. Do not recompile. Optional, default: false.
-4. Language. Optional, default: en.
+4. Compiler. Truffle compiler (use `npx truffle compiler` to use the same compiler as the project, instead of global install of Truffle).
+5. Language. Optional, default: en.
+6. Version. Optional, refers to contracts version (depends on the project).
+7. Ignore files. Optional, array with filenames to ignore.
+
+Using a [configuration file](#configuration-file) is recommended (mostly if you want to ignore files).
 
 
 **How to Use Solidoc?**
@@ -66,7 +79,9 @@ Alternatively, you can create `solidoc.json` configuration file in your project 
   "outputPath": "./docs",
   "noCompilation": true,
   "compiler": "truffle compile",
-  "language": "en"
+  "language": "en",
+  "version": "0.1.10",
+  "ignoreFiles": []
 }
 ```
 

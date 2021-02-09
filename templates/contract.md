@@ -13,7 +13,7 @@ original_id: {{ContractName}}
 
 
 
-**{{ContractName}}**
+**{{ContractName}}**{{versionDetail}}
 
 
 {{ContractDescription}}

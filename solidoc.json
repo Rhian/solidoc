@@ -3,5 +3,7 @@
   "outputPath": "../openzeppelin-solidity/docs",
   "noCompilation": true,
   "compiler": "truffle compile",
-  "language": "en"
+  "language": "en",
+  "version": "0.1.10",
+  "ignoreFiles": []
 }
