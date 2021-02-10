@@ -1,5 +1,7 @@
 # Solidoc: Documentation Generator for Solidity
 
+[![npm version](https://badge.fury.io/js/%40thinkanddev%2Fsolidoc.svg)](https://www.npmjs.com/package/@thinkanddev/solidoc)
+
 This command-line utility creates markdown-based documentation for your Solidity project(s) for the following platforms:
 
 * Ethereum
@@ -43,7 +45,7 @@ Using a [configuration file](#configuration-file) is recommended (mostly if you 
 
 **How to Use Solidoc?**
 
-On your project root, run the following command.
+On your project root, run the following command:
 
 ```npm
 solidoc ./ ./docs true
@@ -59,7 +61,7 @@ This will generate documentation to the `docs` directory.
   }
 ```
 
-and run
+and run:
 
 ```npm
 npm run docgen
@@ -67,11 +69,11 @@ npm run docgen
 
 **Note**
 
-Do not use recompilation (third argument) if you are using this on a non truffle project.
+Do not use recompilation (third argument) if you are using this on a non Truffle project.
 
 ## Configuration File
 
-Alternatively, you can create `solidoc.json` configuration file in your project root.
+Alternatively, you can create `solidoc.json` configuration file in your project root:
 
 ```json
 {
