@@ -3,7 +3,9 @@
 module.exports = {
   get: function(contents, key) {
     contents = contents || "";
-    const members = contents.split("@");
+    const members = typeof contents === 'object'
+      ? contents.text.split("@")
+      : contents.split("@");
 
     for(let i in members) {
       const entry = members[i];
