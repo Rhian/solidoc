@@ -8,9 +8,10 @@ module.exports = {
       : contents.split("@");
 
     for(let i in members) {
-      const entry = members[i];
+      let entry = members[i];
 
       if(entry.startsWith(key)) {
+        entry = entry.replace(/\n/g, "");
         return entry.substr(key.length, entry.length - key.length).trim();
       }
     }
