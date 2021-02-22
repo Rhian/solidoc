@@ -2,7 +2,7 @@
 const enumerable = require("linq");
 const i18n = require("../i18n");
 const util = require("util");
-const docHelper = require("../helpers/documentation-helper");
+const documentationHelper = require("../helpers/documentation-helper");
 
 module.exports = {
   build: function(nodes) {
@@ -39,7 +39,7 @@ module.exports = {
         }
 
         if (!!node.documentation) {
-          const doc = docHelper.getNotice(node.documentation);
+          const doc = documentationHelper.getNotice(node.documentation);
           builder.push(doc);
         }
         builder.push("\n");
