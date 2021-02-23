@@ -1,5 +1,7 @@
 "use strict";
 const i18n = require("../i18n");
+const documentationHelper = require("../helpers/documentation-helper");
+const argumentBuilder = require("../builders/argument-builder");
 
 module.exports = {
   build: function(nodes) {
@@ -12,7 +14,6 @@ module.exports = {
     builder.push(`**${i18n.translate("Events")}**`);
     builder.push("\n");
     builder.push("\n");
-    builder.push("```js");
     builder.push("\n");
 
     for(let i in nodes) {
@@ -28,11 +29,22 @@ module.exports = {
         parameterList.push(`${dataType} ${indexed ? "indexed" : ""} ${argumentName}`.trim());
       }
 
+      if (!!node.documentation) {
+        const doc = argumentBuilder.build(node.documentation, node.parameters.parameters);
+        builder.push(doc);
+      }
+
+      builder.push("\n");
+      builder.push("```js");
+      builder.push("\n");
       builder.push(`event ${node.name}(${parameterList.join(", ")});`);
+      builder.push("\n");
+      builder.push("```");
+      builder.push("\n");
+      builder.push("---");
       builder.push("\n");
     }
 
-    builder.push("```");
     builder.push("\n");
     builder.push("\n");
 
