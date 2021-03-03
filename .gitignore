@@ -63,3 +63,4 @@ typings/
 .idea/vcs.xml
 .idea/solidoc.iml
 .idea/modules.xml
+.vscode/
