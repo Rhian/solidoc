@@ -2,6 +2,7 @@
 const enumerable = require("linq");
 const i18n = require("../i18n");
 const util = require("util");
+const documentationHelper = require("../helpers/documentation-helper");
 
 module.exports = {
   build: function(nodes) {
@@ -16,8 +17,6 @@ module.exports = {
     builder.push(`**${i18n.translate("ConstantsAndVariables")}**`);
     builder.push("\n");
     builder.push("\n");
-    builder.push("```js");
-    builder.push("\n");
 
     const groups = enumerable.from(nodes).groupBy(function(x) {
       return x.visibility.toLowerCase();
@@ -31,11 +30,6 @@ module.exports = {
         return x.visibility.toLowerCase() === key;
       }).toArray();
 
-      if(groups.length > 1) {
-        builder.push(util.format(i18n.translate("VisibilityMembers"), key));
-        builder.push("\n");
-      }
-
       for(var j in candidates) {
         const node = candidates[j];
         const constant = node.constant ? " constant " : " ";
@@ -44,16 +38,27 @@ module.exports = {
           continue;
         }
 
+        if (!!node.documentation) {
+          const doc = documentationHelper.getNotice(node.documentation);
+          builder.push(doc);
+        }
+        builder.push("\n");
+        builder.push("```js");
+        builder.push("\n");
         builder.push(`${node.typeDescriptions.typeString} ${node.visibility.toLowerCase()}${constant}${node.name}`);
 
         builder.push(";");
+        builder.push("\n");
+        builder.push("```");
+        builder.push("\n");
+        builder.push("---");
+        builder.push("\n");
         builder.push("\n");
       }
 
       builder.push("\n");
     }
 
-    builder.push("```");
     builder.push("\n");
     builder.push("\n");
 

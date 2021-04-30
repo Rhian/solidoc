@@ -1,6 +1,6 @@
 {
-  "pathToRoot": "../openzeppelin-solidity",
-  "outputPath": "../openzeppelin-solidity/docs",
+  "pathToRoot": "./",
+  "outputPath": "./docs/contracts",
   "noCompilation": true,
   "compiler": "truffle compile",
   "language": "en",

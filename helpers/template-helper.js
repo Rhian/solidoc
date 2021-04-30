@@ -24,5 +24,6 @@ module.exports = {
   ContractTemplate: read("contract.md"),
   FunctionTemplate: read("function.md"),
   ModifierTemplate: read("modifier.md"),
-  TableHeaderTemplate: read("table-header.md")
+  TableHeaderTemplate: read("table-header.md"),
+  EventTemplate: read("event.md")
 };

@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/solidoc.iml
+.idea/modules.xml
+.vscode/
