@@ -14,6 +14,7 @@ This command-line utility creates markdown-based documentation for your Solidity
 * Rootstock
 * Ubiq
 * Monax
+* RSK
 
 ## Supports Solidity up to 0.7.
 Able to also generate docs for events and state variables with tags like `@notice`, `@dev` and `@param`.
