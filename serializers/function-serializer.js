@@ -41,7 +41,7 @@ module.exports = {
         parameterList.push(`${dataType} ${argumentName}`);
       }
 
-      return `- [${x.name}(${parameterList.join(", ")})](#${x.name.toLowerCase()})`;
+      return `- [${x.name}(${parameterList.join(", ")})](#${(!x.name)?contract.contractName.toLowerCase().concat('sol'):x.name.toLowerCase()})`;
     }).toArray();
 
     template = template.replace("{{FunctionTitle}}", i18n.translate("Functions"));
