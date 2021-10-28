@@ -33,7 +33,7 @@ module.exports = {
     if (baseContract !== undefined) {
       if(!baseContract.ignore) {
         // If file is not ignored, then add link to file as well
-        builder.push(`[${baseContract.contractName}.${node.name}](${baseContract.contractName}.md#${node.name.toLowerCase()})`);
+        builder.push((!node.name)?`[${baseContract.contractName}.${node.name}](${baseContract.contractName}.md)`:`[${baseContract.contractName}.${node.name}](${baseContract.contractName}.md#${node.name.toLowerCase()})`);
       } else {
         // Otherwise, show file name but do not link it (since it is ignored)
         builder.push(`${baseContract.contractName}.${node.name}`);
