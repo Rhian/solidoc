@@ -19,18 +19,6 @@ original_id: {{ContractName}}
 {{ContractDescription}}
 
 
-{{ConstructorHeading}}
-
-
-{{ConstructorDescription}}
-
-
-{{ConstructorCode}}
-
-
-{{ConstructorArgumentsHeading}}
-
-
 {{Enumerators}}
 
 
@@ -38,13 +26,6 @@ original_id: {{ContractName}}
 
 
 {{Members}}
-
-{{Events}}
-
-{{TableHeader}}
-{{ConstructorArguments}}
-
-
 
 
 {{ModifierTitle}}
@@ -62,3 +43,19 @@ original_id: {{ContractName}}
 
 
 {{AllFunctions}}
+
+{{ConstructorHeading}}
+
+
+{{ConstructorDescription}}
+
+
+{{ConstructorCode}}
+
+
+{{ConstructorArgumentsHeading}}
+
+{{Events}}
+
+{{TableHeader}}
+{{ConstructorArguments}}
