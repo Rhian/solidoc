@@ -33,6 +33,9 @@ module.exports = {
     const functionList = enumerable.from(functionNodes).select(function(x) {
       const parameters = x.parameters.parameters || [];
       const parameterList = [];
+      if(x.kind !== "function") {
+        x.name = x.kind;
+      }
 
       for(let i in parameters) {
         const parameter = parameters[i];
@@ -48,6 +51,9 @@ module.exports = {
 
     for(let i in functionNodes) {
       const node = functionNodes[i];
+      if(node.kind !== "function") {
+        node.name = node.kind;
+      }
 
       let functionTemplate = templateHelper.FunctionTemplate;
       const description = documentationHelper.getNotice(node.documentation);
@@ -66,8 +72,8 @@ module.exports = {
       functionTemplate = functionTemplate.replace("{{FunctionCode}}", functionCode);
       functionTemplate = functionTemplate.replace("{{FunctionArguments}}", args);
 
-      functionTemplate = functionTemplate.replace("{{TableHeader}}", parameters ? templateHelper.TableHeaderTemplate : "");
-      functionTemplate = functionTemplate.replace("{{FunctionArgumentsHeading}}", parameters ? `**${i18n.translate("Arguments")}**` : "");
+      functionTemplate = functionTemplate.replace("{{TableHeader}}", parameters.length > 0 ? templateHelper.TableHeaderTemplate : "");
+      functionTemplate = functionTemplate.replace("{{FunctionArgumentsHeading}}", parameters.length > 0 ? `**${i18n.translate("Arguments")}**` : "");
 
       definitionList.push(functionTemplate);
     }
