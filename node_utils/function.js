@@ -17,7 +17,7 @@ module.exports = {
       }
 
       const candidates = enumerable.from(node.nodes).where(function(x) {
-        return x.nodeType === "FunctionDefinition";
+        return x.nodeType === "FunctionDefinition" && x.kind !== "constructor";
       }).toArray();
 
       functions = functions.concat(candidates);
