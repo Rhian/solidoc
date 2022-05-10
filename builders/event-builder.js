@@ -30,7 +30,7 @@ module.exports = {
       }
 
       builder.push("\n");
-      builder.push("```js");
+      builder.push("```solidity");
       builder.push("\n");
       builder.push(`event ${node.name}(${parameterList.join(", ")});`);
       builder.push("\n");

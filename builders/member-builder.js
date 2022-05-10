@@ -43,7 +43,7 @@ module.exports = {
           builder.push(doc);
         }
         builder.push("\n");
-        builder.push("```js");
+        builder.push("```solidity");
         builder.push("\n");
         builder.push(`${node.typeDescriptions.typeString} ${node.visibility.toLowerCase()}${constant}${node.name}`);
 
