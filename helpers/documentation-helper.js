@@ -1,28 +1,71 @@
 "use strict";
+const templateHelper = require("../helpers/template-helper");
 
 module.exports = {
   get: function(contents, key) {
     contents = contents || "";
     const members = typeof contents === 'object'
       ? contents.text.split("@")
-      : contents.split("@");
+      : contents.split("@")
 
     for(let i in members) {
       let entry = members[i];
-
+      
       if (entry.startsWith(key)) {
-        entry = key.includes("param")
+        entry = key.includes("param") 
           ? entry.replace(/\n/g, "")
           : entry;
         return entry.substr(key.length, entry.length - key.length).trim();
-      }
+      } 
     }
 
     return "";
+  },
+  getReturnDetail: function(contents) {
+    contents = contents || "";
+    const members = typeof contents === 'object'
+      ? contents.text.split("@")
+      : contents.split("@")
+
+    let entry = Object.values(members).filter(function(x) { return x.startsWith("return") });
+    return entry.join("").replace(/return/g, "").replace(/ - /g, "\n").split("\n");
   },
   getNotice: function(contents) {
     const notice = this.get(contents, "notice");
     const dev = this.get(contents, "dev");
     return notice.concat(dev);
+  },
+  createReturnValues: function(a,b) {
+    const header = templateHelper.TableHeaderTemplate;
+    const returnParams = a.split("returns(").pop().replace(")", '').replace(",", '').split(" ");
+    function sliceIntoChunks(arr, chunkSize) {
+      const res = [];
+      for (let i = 0; i < arr.length; i += chunkSize) {
+          const chunk = arr.slice(i, i + chunkSize);
+          res.push(chunk);
+      }
+      return res;
+    }
+    const returnInfo = b;
+    const returnParamsArr = sliceIntoChunks(returnParams, 2);
+    const returnInfoArr = sliceIntoChunks(returnInfo, 2);
+    function returnMarkdown(arr, arr2) {
+      let description;
+      (arr2 && arr2[0].includes(arr[0])) ? description = arr2[1] : description = "";
+
+      return arr.length < 2 ? arr[0] :  `\n| ${arr[0]} | ${arr[1]} | ${description} |`
+    }
+
+    let tableContent = "";
+    for (let i = 0; i < returnParamsArr.length; i++) {
+      returnParamsArr[i].length > 1
+        ? tableContent = tableContent.concat(returnMarkdown(returnParamsArr[i], returnInfoArr[i]))
+        : tableContent = returnParamsArr[i][0];
+  }
+  let returnTable = "";
+  tableContent.includes("|") 
+    ? returnTable = header.concat(tableContent) 
+    : returnTable = tableContent;
+  return returnTable;
   }
 };

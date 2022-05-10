@@ -9,7 +9,6 @@
 
 {{FunctionCode}}
 
-
 {{FunctionArgumentsHeading}}
 
 {{TableHeader}}

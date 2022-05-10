@@ -21,7 +21,12 @@ module.exports = {
 
       for(let i in returnParameters) {
         const parameter = returnParameters[i];
-        returnList.push(`${parameter.name} ${parameter.typeDescriptions.typeString}`.trim());
+        if(parameter.typeDescriptions.typeString.match(/struct/)) {
+          let reorderedType = parameter.typeDescriptions.typeString.split(" ").reverse().join(" ");
+          returnList.push(`${reorderedType}`);
+        } else {
+          returnList.push(`${parameter.name} ${parameter.typeDescriptions.typeString}`.trim());
+        }
       }
 
       builder.push(returnList.join(", "));
@@ -40,7 +45,7 @@ module.exports = {
     const parameters = node.parameters.parameters || [];
     const documentation = node.documentation;
 
-    const returnDocumentation = documentationHelper.get(documentation, "return");
+    const returnDocumentation = documentationHelper.getReturnDetail(documentation);
     const parameterList = [];
 
     const modifierList = enumerable.from(node.modifiers).select(function(x) {
@@ -54,7 +59,7 @@ module.exports = {
       parameterList.push(`${dataType} ${argumentName}`);
     }
 
-    builder.push("```js");
+    builder.push("```solidity");
     builder.push("\n");
     builder.push(`function ${node.name}(`);
 
@@ -80,9 +85,11 @@ module.exports = {
     builder.push("\n");
     builder.push("```");
 
-    if(!returnDocumentation) {
+    if(!returnParameters) {
       return builder.join("");
     }
+
+    let returnValues = documentationHelper.createReturnValues(returnParameters, returnDocumentation);
 
     builder.push("\n");
     builder.push("\n");
@@ -90,7 +97,8 @@ module.exports = {
     builder.push(`**${i18n.translate("Returns")}**`);
     builder.push("\n");
     builder.push("\n");
-    builder.push(returnDocumentation);
+    builder.push("\n");
+    builder.push(`${returnValues}`);
     builder.push("\n");
 
     return builder.join("");
