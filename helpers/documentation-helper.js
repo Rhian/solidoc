@@ -1,5 +1,6 @@
 "use strict";
 const templateHelper = require("../helpers/template-helper");
+const structHelper = require("../helpers/struct-helper");
 
 module.exports = {
   get: function(contents, key) {
@@ -49,11 +50,16 @@ module.exports = {
     const returnInfo = b;
     const returnParamsArr = sliceIntoChunks(returnParams, 2);
     const returnInfoArr = sliceIntoChunks(returnInfo, 2);
+
     function returnMarkdown(arr, arr2) {
       let description;
+      let fullName;
       (arr2 && arr2[0].includes(arr[0])) ? description = arr2[1] : description = "";
-
-      return arr.length < 2 ? arr[0] :  `\n| ${arr[0]} | ${arr[1]} | ${description} |`
+      
+      arr[1] === "struct"
+      ? fullName = structHelper.getStructLink(arr[0])
+      : fullName = arr[0];
+      return arr.length < 2 ? fullName :  `\n| ${fullName} | ${arr[1]} | ${description} |`
     }
 
     let tableContent = "";
@@ -62,10 +68,10 @@ module.exports = {
         ? tableContent = tableContent.concat(returnMarkdown(returnParamsArr[i], returnInfoArr[i]))
         : tableContent = returnParamsArr[i][0];
   }
-  let returnTable = "";
-  tableContent.includes("|") 
-    ? returnTable = header.concat(tableContent) 
-    : returnTable = tableContent;
-  return returnTable;
+    let returnTable = "";
+    tableContent.includes("|") 
+      ? returnTable = header.concat(tableContent) 
+      : returnTable = tableContent;
+    return returnTable;
   }
 };
