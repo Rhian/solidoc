@@ -20,7 +20,6 @@ module.exports = {
 
       events = events.concat(candidates);
     }
-
     return events;
   }
 };
