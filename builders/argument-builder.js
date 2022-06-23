@@ -13,6 +13,8 @@ module.exports = {
     for(let i in parameters) {
       const parameter = parameters[i];
       let paramType = "";
+      let regular = /\s*-\s+/;
+      let strippedDoc = "";
       parameter.typeDescriptions.typeString.match(/struct/)
       ? paramType = structHelper.getStructLink(parameter.typeDescriptions.typeString.split(" ")[1])
       : paramType = parameter.typeDescriptions.typeString;
@@ -22,8 +24,12 @@ module.exports = {
       builder.push(" | ");
       builder.push(paramType.replace("contract ", ""));
       builder.push(" | ");
-      const doc = documentationHelper.get(documentation, "param " + parameter.name);
-      builder.push(doc);
+      const doc = documentationHelper.get(documentation, "param" + parameter.name);
+      
+      doc.includes("-") ?
+        strippedDoc = doc.replace(regular, "") :
+        strippedDoc
+      builder.push(strippedDoc);
       builder.push(" | ");
       builder.push("\n");
     }

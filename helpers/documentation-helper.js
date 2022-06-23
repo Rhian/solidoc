@@ -59,6 +59,7 @@ module.exports = {
       arr[1] === "struct"
       ? fullName = structHelper.getStructLink(arr[0])
       : fullName = arr[0];
+
       return arr.length < 2 ? fullName :  `\n| ${fullName} | ${arr[1]} | ${description} |`
     }
 

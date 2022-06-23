@@ -63,13 +63,21 @@ module.exports = {
     builder.push("\n");
     builder.push(`function ${node.name}(`);
 
-    builder.push(parameterList.join(", "));
+    parameterList.length > 1 ?
+      builder.push("\n" + parameterList.join("\n") + "\n") :
+      builder.push(parameterList.join(", "))
 
     builder.push(") ");
 
-    builder.push(node.visibility.toLowerCase());
+    builder.push("\n" + node.visibility.toLowerCase());
 
-    builder.push(` ${node.stateMutability}`);
+    let stateMutability;
+
+    node.stateMutability === "nonpayable" ?
+      stateMutability = "" :
+      stateMutability = node.stateMutability
+    
+    builder.push("\n" + `${stateMutability}`);
 
     if(modifierList && modifierList.length) {
       builder.push(` ${modifierList.join(" ")} `);
