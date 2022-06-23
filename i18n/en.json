@@ -9,7 +9,7 @@
   "Enums": "Enums",
   "Events": "Events",
   "Extends": "↗ Extends: %s",
-  "Functions": "Functions",
+  "Functions": "## Functions",
   "InvalidCommand": "Invalid command ->  %s",
   "InvalidDirectory": "Invalid directory ->  %s",
   "Modifiers": "Modifiers",

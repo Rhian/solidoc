@@ -37,7 +37,7 @@ original_id: {{ContractName}}
 {{AllModifiers}}
 
 
-## Functions
+{{FunctionTitle}}
 
 {{FunctionList}}
 
