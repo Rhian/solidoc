@@ -1,6 +1,6 @@
 {
   "name": "@bosonprotocol/solidoc",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Solidity Documentation Generator forked from @thinkanddev/solidoc",
   "main": "cli.js",
   "scripts": {
