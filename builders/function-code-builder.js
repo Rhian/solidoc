@@ -36,6 +36,37 @@ module.exports = {
       return builder.join("");
     }
 
+    function signatureReturnValues() {
+      const builder = [];
+
+      var returnParameters = nodeHelper.getReturnParameters(node);
+
+      if(!returnParameters || !returnParameters.length) {
+        return "";
+      }
+
+      builder.push("returns(");
+
+      const signatureReturnList = [];
+
+      for(let i in returnParameters) {
+        const parameter = returnParameters[i];
+        if (parameter.typeDescriptions.typeString.match(/struct/) && parameter.typeName.pathNode) {
+          signatureReturnList.push(`${parameter.name} ${parameter.storageLocation} ${parameter.typeName.pathNode.name}`);
+        } else if (parameter.typeDescriptions.typeString.match(/struct/)) {
+          signatureReturnList.push(`${parameter.name} ${parameter.storageLocation} ${parameter.typeDescriptions.typeString.split(" ")[1]}`);
+        } else {
+          signatureReturnList.push(`${parameter.name} ${parameter.typeDescriptions.typeString}`.trim());
+        }
+      }
+
+      builder.push(signatureReturnList.join(", "));
+
+      builder.push(")");
+
+      return builder.join("");
+    }
+
     if(!node || !node.parameters) {
       return "";
     }
@@ -49,7 +80,7 @@ module.exports = {
     const parameterList = [];
 
     const modifierList = enumerable.from(node.modifiers).select(function(x) {
-      return x.modifierName.name;
+      return x.modifierName.name.trim();
     }).toArray();
 
     for(let i in parameters) {
@@ -64,7 +95,7 @@ module.exports = {
     builder.push(`function ${node.name}(`);
 
     parameterList.length > 1 ?
-      builder.push("\n" + parameterList.join("\n") + "\n") :
+      builder.push(parameterList.join(",\n ")) :
       builder.push(parameterList.join(", "))
 
     builder.push(") ");
@@ -80,14 +111,21 @@ module.exports = {
     builder.push("\n" + `${stateMutability}`);
 
     if(modifierList && modifierList.length) {
-      builder.push(` ${modifierList.join(" ")} `);
+      builder.push(`${modifierList.join(" ")} `);
     }
 
     const returnParameters = getReturnParameters();
+    const sigReturnValues = signatureReturnValues();
 
-    if(returnParameters) {
+    let styledSigReturnValues;
+  
+    sigReturnValues.split(",").length > 2
+      ? styledSigReturnValues = sigReturnValues.replace(/, /g, ",\n ") 
+      : styledSigReturnValues = sigReturnValues
+
+    if(signatureReturnValues) {
       builder.push("\n");
-      builder.push(returnParameters);
+      builder.push(styledSigReturnValues);
     }
 
     builder.push("\n");

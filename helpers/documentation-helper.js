@@ -52,15 +52,26 @@ module.exports = {
     const returnInfoArr = sliceIntoChunks(returnInfo, 2);
 
     function returnMarkdown(arr, arr2) {
-      let description;
+      let description = "";
       let fullName;
+      let type;
       (arr2 && arr2[0].includes(arr[0])) ? description = arr2[1] : description = "";
-      
-      arr[1] === "struct"
-      ? fullName = structHelper.getStructLink(arr[0])
-      : fullName = arr[0];
 
-      return arr.length < 2 ? fullName :  `\n| ${fullName} | ${arr[1]} | ${description} |`
+      if (arr[1].includes("struct") && arr2 && arr2[1]) {
+          description = arr2[1].replace(/\{(.+?)\}/, `{${structHelper.getStructLink(arr[0])}}`);
+          type = structHelper.getStructLink(arr[0]);
+          fullName =  arr2[0].split(",")[0];
+      } else if (arr[1].includes("struct") && arr2 && !arr2[0] === "") {
+          fullName = arr2[0];
+          type = structHelper.getStructLink(arr[0]);
+      } else if (arr[1].includes("struct")) {
+          fullName = arr[0];
+          type = structHelper.getStructLink(arr[0]);
+      } else {
+          fullName = arr[0];
+          type = arr[1];
+      }
+      return arr.length < 2 ? fullName :  `\n| ${fullName} | ${type} | ${description} |`
     }
 
     let tableContent = "";
