@@ -5,7 +5,7 @@ module.exports = {
         let linkedName = "";
         if (structName.includes(".")) {
         linkedName = `${structName.split(" ")[0]}`;
-        return `[${linkedName}](${linkedName.split('.')[0]}.md#${linkedName.split('.')[1].toLowerCase()})`;
+        return `[${linkedName}](${linkedName.split('.')[0].replace('[]', '')}.md#${linkedName.split('.')[1].replace('[]', '').toLowerCase()})`;
         }
     }
 };
