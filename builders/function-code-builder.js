@@ -52,11 +52,11 @@ module.exports = {
       for(let i in returnParameters) {
         const parameter = returnParameters[i];
         if (parameter.typeDescriptions.typeString.match(/struct/) && parameter.typeName.pathNode) {
-          signatureReturnList.push(`${parameter.name} ${parameter.storageLocation} ${parameter.typeName.pathNode.name}`);
+          signatureReturnList.push(`${parameter.typeName.pathNode.name} ${parameter.storageLocation} ${parameter.name}`);
         } else if (parameter.typeDescriptions.typeString.match(/struct/)) {
-          signatureReturnList.push(`${parameter.name} ${parameter.storageLocation} ${parameter.typeDescriptions.typeString.split(" ")[1]}`);
+          signatureReturnList.push(`${parameter.typeDescriptions.typeString.split(" ")[1]} ${parameter.storageLocation} ${parameter.name}`);
         } else {
-          signatureReturnList.push(`${parameter.name} ${parameter.typeDescriptions.typeString}`.trim());
+          signatureReturnList.push(`${parameter.typeDescriptions.typeString} ${parameter.name}`.trim());
         }
       }
 
