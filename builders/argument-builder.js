@@ -18,9 +18,9 @@ module.exports = {
       parameter.typeDescriptions.typeString.match(/struct/)
       ? paramType = structHelper.getStructLink(parameter.typeDescriptions.typeString.split(" ")[1])
       : paramType = parameter.typeDescriptions.typeString;
-      
+
       builder.push("| ");
-      builder.push(parameter.name);
+      builder.push(parameter.name.trim());
       builder.push(" | ");
       builder.push(paramType.replace("contract ", ""));
       builder.push(" | ");
@@ -33,7 +33,6 @@ module.exports = {
       builder.push(" | ");
       builder.push("\n");
     }
-
     return builder.join("");
   }
 };
