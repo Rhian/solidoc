@@ -60,8 +60,6 @@ module.exports = {
       const functionCode = codeBuilder.build(node);
       const base = superBuilder.build(node, contracts);
       const references = referenceBuilder.build(node, contracts);
-      var parameters = (node.parameters || {}).parameters;
-      const args = argumentBuilder.build(node.documentation, parameters);
 
       functionTemplate = functionTemplate.replace("{{FunctionName}}", node.name);
       functionTemplate = functionTemplate.replace("{{FQFunctionName}}", `${contract.contractName}.${node.name}`);
@@ -70,10 +68,6 @@ module.exports = {
       functionTemplate = functionTemplate.replace("{{References}}", references);
       functionTemplate = functionTemplate.replace("{{FunctionDescription}}", description);
       functionTemplate = functionTemplate.replace("{{FunctionCode}}", functionCode);
-      functionTemplate = functionTemplate.replace("{{FunctionArguments}}", args);
-
-      functionTemplate = functionTemplate.replace("{{TableHeader}}", parameters.length > 0 ? templateHelper.TableHeaderTemplate : "");
-      functionTemplate = functionTemplate.replace("{{FunctionArgumentsHeading}}", parameters.length > 0 ? `**${i18n.translate("Arguments")}**` : "");
 
       definitionList.push(functionTemplate);
     }
