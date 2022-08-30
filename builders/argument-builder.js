@@ -13,26 +13,27 @@ module.exports = {
     for(let i in parameters) {
       const parameter = parameters[i];
       let paramType = "";
-      let regular = /\s*-\s+/;
-      let strippedDoc = "";
+      let description = "";
       parameter.typeDescriptions.typeString.match(/struct/)
       ? paramType = structHelper.getStructLink(parameter.typeDescriptions.typeString.split(" ")[1])
       : paramType = parameter.typeDescriptions.typeString;
-
+      
       builder.push("| ");
-      builder.push(parameter.name.trim());
+      builder.push(parameter.name);
       builder.push(" | ");
       builder.push(paramType.replace("contract ", ""));
       builder.push(" | ");
-      const doc = documentationHelper.get(documentation, "param" + parameter.name);
+      description = documentationHelper.get(documentation, "param " + parameter.name);
+
+      description.includes(" - ") ?
+        description.replace(" - ", "").trim() :
+        description
       
-      doc.includes("-") ?
-        strippedDoc = doc.replace(regular, "") :
-        strippedDoc
-      builder.push(strippedDoc);
+      builder.push(description);
       builder.push(" | ");
       builder.push("\n");
     }
+
     return builder.join("");
   }
 };
