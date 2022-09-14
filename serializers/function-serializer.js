@@ -70,10 +70,6 @@ module.exports = {
       functionTemplate = functionTemplate.replace("{{References}}", references);
       functionTemplate = functionTemplate.replace("{{FunctionDescription}}", description);
       functionTemplate = functionTemplate.replace("{{FunctionCode}}", functionCode);
-      functionTemplate = functionTemplate.replace("{{FunctionArguments}}", args);
-
-      functionTemplate = functionTemplate.replace("{{TableHeader}}", parameters.length > 0 ? templateHelper.TableHeaderTemplate : "");
-      functionTemplate = functionTemplate.replace("{{FunctionArgumentsHeading}}", parameters.length > 0 ? `**${i18n.translate("Arguments")}**` : "");
 
       definitionList.push(functionTemplate);
     }

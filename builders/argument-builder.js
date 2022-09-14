@@ -25,11 +25,11 @@ module.exports = {
       builder.push(" | ");
       description = documentationHelper.get(documentation, "param " + parameter.name);
 
-      description.includes(" - ") ?
-        description.replace(" - ", "").trim() :
-        description
+      description.replace(" - ", "").trim();
+      description.replace("- ", "");
+      builder.push(`${description} | \n`);
       
-      builder.push(description);
+      builder.push(description.replace("- ", ""));
       builder.push(" | ");
       builder.push("\n");
     }

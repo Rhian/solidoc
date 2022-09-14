@@ -2,6 +2,7 @@
 const documentationHelper = require("../helpers/documentation-helper");
 const enumerable = require("linq");
 const nodeHelper = require("../helpers/node-helper");
+const argumentBuilder = require("../builders/argument-builder");
 const i18n = require("../i18n");
 
 module.exports = {
@@ -75,9 +76,16 @@ module.exports = {
 
     const parameters = node.parameters.parameters || [];
     const documentation = node.documentation;
-
+    const returnParameters = getReturnParameters();
+    const sigReturnValues = signatureReturnValues();
+    const args = argumentBuilder.build(node.documentation, parameters);
     const returnDocumentation = documentationHelper.getReturnDetail(documentation);
+    const returnValues = documentationHelper.createReturnValues(returnParameters, returnDocumentation);
+   
     const parameterList = [];
+
+    const argsHeader = "| Name        | Type           | Description  |";
+    const argsDivider = "| ------------- |------------- | -----|";
 
     const modifierList = enumerable.from(node.modifiers).select(function(x) {
       return x.modifierName.name.trim();
@@ -114,9 +122,6 @@ module.exports = {
       builder.push(`${modifierList.join(" ")} `);
     }
 
-    const returnParameters = getReturnParameters();
-    const sigReturnValues = signatureReturnValues();
-
     let styledSigReturnValues;
   
     sigReturnValues.split(",").length > 2
@@ -131,14 +136,27 @@ module.exports = {
     builder.push("\n");
     builder.push("```");
 
-    if(!returnParameters) {
+    if(!returnParameters && !args) {
       return builder.join("");
     }
 
-    let returnValues = documentationHelper.createReturnValues(returnParameters, returnDocumentation);
+    builder.push("\n");
 
-    builder.push("\n");
-    builder.push("\n");
+    if(args.length) {
+      builder.push(`**${i18n.translate("Arguments")}**`);
+      builder.push("\n");
+      builder.push("\n");
+      builder.push(`${argsHeader}`);
+      builder.push("\n");
+      builder.push(`${argsDivider}`);
+      builder.push("\n");
+      builder.push(`${args}`);
+      builder.push("\n");
+    }
+
+    if(!returnParameters) {
+      return builder.join("");
+    }
 
     builder.push(`**${i18n.translate("Returns")}**`);
     builder.push("\n");

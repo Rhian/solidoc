@@ -15,7 +15,7 @@ module.exports = {
       if (entry.startsWith(key)) {
         entry = key.includes("param") 
           ? entry.replace(/\n/g, "")
-          : entry.replace(/\n/g, "<br/><br/>");
+          : entry;
         return entry.substr(key.length, entry.length - key.length).trim();
       } 
     }

@@ -4,12 +4,6 @@
 
 {{References}}
 
-
 {{FunctionDescription}}
 
 {{FunctionCode}}
-
-{{FunctionArgumentsHeading}}
-
-{{TableHeader}}
-{{FunctionArguments}}
