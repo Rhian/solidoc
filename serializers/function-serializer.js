@@ -47,7 +47,7 @@ module.exports = {
       return `- [${x.name}(${parameterList.join(", ")})](#${(!x.name)?contract.contractName.toLowerCase().concat('sol'):x.name.toLowerCase()})`;
     }).toArray();
 
-    template = template.replace("{{FunctionTitle}}", i18n.translate("Functions"));
+    template = template.replace("{{FunctionTitle}}", `## ${i18n.translate("Functions")}`);
 
     for(let i in functionNodes) {
       const node = functionNodes[i];
