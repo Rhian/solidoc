@@ -24,7 +24,7 @@ module.exports = {
     builder.push("\n");
     builder.push(`event ${node.name}(`);
     parameterList.length > 1 ?
-    builder.push("\n" + parameterList.join("\n") + "\n") :
+    builder.push("\n" + parameterList.join("\n ") + "\n") :
     builder.push(parameterList.join(", "))
     builder.push(")");
     builder.push("\n");
