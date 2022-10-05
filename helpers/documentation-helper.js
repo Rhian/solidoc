@@ -33,7 +33,8 @@ module.exports = {
   },
   getNotice: function(contents) {
     const notice = this.get(contents, "notice");
-    const dev = this.get(contents, "dev");
+    const devText = this.get(contents, "dev");
+    const dev = devText.replace(/====/g, "");
     return notice.concat(dev);
   },
   createReturnValues: function(a,b) {
