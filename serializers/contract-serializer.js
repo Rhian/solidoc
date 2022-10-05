@@ -14,11 +14,7 @@ module.exports = {
       const documentation = contractNode.documentation;
       const contractTitle = documentationHelper.get(documentation, "title");
 
-      let title = `${contract.contractName}.sol`;
-
-      if(contractTitle) {
-        title = `${contractTitle.replace("\r\n", "\n")} (${contract.contractName}.sol)`;
-      }
+      let title = `${contract.contractName}`;
 
       return title;
     }
@@ -50,7 +46,7 @@ module.exports = {
       for(let i in contracts) {
         const contract = contracts[i];
 
-        const anchor = `* [${contract.contractName}](${contract.contractName}.md)`;
+        const anchor = `* ${contract.contractName}`;
         anchors.push(anchor);
       }
 
@@ -63,7 +59,7 @@ module.exports = {
 
       for(let i in dependencies) {
         const dependency = dependencies[i];
-        dependencyList.push(`[${dependency.baseName.name}](${dependency.baseName.name}.md)`);
+        dependencyList.push(`${dependency.baseName.name}`);
       }
 
       if(dependencyList && dependencyList.length) {
@@ -80,7 +76,7 @@ module.exports = {
       for(let i in implementations) {
         const implementation = implementations[i];
 
-        implementationList.push(`[${implementation.contractName}](${implementation.contractName}.md)`);
+        implementationList.push(`${implementation.contractName}`);
       }
 
       if(implementationList && implementationList.length) {
