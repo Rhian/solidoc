@@ -15,13 +15,13 @@ module.exports = {
     builder.push("```solidity");
     builder.push("\n");
     builder.push(`struct ${node.name} {`);
-    builder.push("\n");
+    builder.push("\n ");
 
     const members = enumerable.from(node.members).select(function(x) {
-      return `${x.name} ${x.typeDescriptions.typeString} `;
+      return `${x.typeDescriptions.typeString} ${x.name}`.replace("enum ", "");
     }).toArray();
 
-    builder.push(members.join("," + "\n"));
+    builder.push(members.join("," + "\n" + " "));
 
     builder.push("\n");
 

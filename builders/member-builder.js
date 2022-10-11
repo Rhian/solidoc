@@ -51,7 +51,6 @@ module.exports = {
         builder.push("\n");
         builder.push("```");
         builder.push("\n");
-        builder.push("---");
         builder.push("\n");
         builder.push("\n");
       }
