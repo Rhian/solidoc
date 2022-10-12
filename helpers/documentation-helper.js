@@ -29,16 +29,17 @@ module.exports = {
       : contents.split("@")
 
     let entry = Object.values(members).filter(function(x) { return x.startsWith("return") });
-    return entry.join("").replace(/return/g, "").replace(/ - /g, "\n").split("\n");
+    return entry.join("").replace(/return/g, "").replace(/ - /g, "\n");
   },
   getNotice: function(contents) {
     const notice = this.get(contents, "notice");
     const devText = this.get(contents, "dev");
     const dev = devText.replace(/====/g, "");
-    return notice.concat(dev);
+    return notice.concat(dev).replace("\n", "<br/>");
   },
   createReturnValues: function(a,b) {
     const header = templateHelper.TableHeaderTemplate;
+    const dataTypes = [/bytes/, /uint/, /address/, /string/, /bool/, /enum/, /mapping/]
     const returnParams = a.split("returns(").pop().replace(")", '').replace(",", '').split(" ");
     function sliceIntoChunks(arr, chunkSize) {
       const res = [];
@@ -56,6 +57,7 @@ module.exports = {
       let description = "";
       let fullName;
       let type;
+
       (arr2 && arr2[0].includes(arr[0])) ? description = arr2[1] : description = "";
 
       if (arr[1].includes("struct") && arr2 && arr2[1]) {
@@ -68,6 +70,9 @@ module.exports = {
       } else if (arr[1].includes("struct")) {
           fullName = arr[0];
           type = structHelper.getStructLink(arr[0]);
+        } else if (dataTypes.some(x => x.test(arr[0]))) {
+          fullName = " ";
+          type = arr[0].concat(` ${arr[1]}`);
       } else {
           fullName = arr[0];
           type = arr[1];
@@ -77,7 +82,7 @@ module.exports = {
 
     let tableContent = "";
     for (let i = 0; i < returnParamsArr.length; i++) {
-      returnParamsArr[i].length > 1
+      returnParamsArr[i].length > 1 
         ? tableContent = tableContent.concat(returnMarkdown(returnParamsArr[i], returnInfoArr[i]))
         : tableContent = returnParamsArr[i][0];
   }
