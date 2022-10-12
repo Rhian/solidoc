@@ -18,7 +18,7 @@ module.exports = {
     builder.push("\n ");
 
     const members = enumerable.from(node.members).select(function(x) {
-      return `${x.typeDescriptions.typeString} ${x.name}`.replace("enum ", "");
+      return ` ${x.typeDescriptions.typeString} ${x.name}`.replace("enum ", "");
     }).toArray();
 
     builder.push(members.join("," + "\n" + " "));
