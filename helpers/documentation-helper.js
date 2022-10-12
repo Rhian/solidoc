@@ -35,7 +35,7 @@ module.exports = {
     const notice = this.get(contents, "notice");
     const devText = this.get(contents, "dev");
     const dev = devText.replace(/====/g, "");
-    return notice.concat(dev).replace("\n", "<br/>");
+    return notice.concat(dev).replace(/\n/g, "<br/>");
   },
   createReturnValues: function(a,b) {
     const header = templateHelper.TableHeaderTemplate;
