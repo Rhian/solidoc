@@ -19,6 +19,16 @@ module.exports = {
       return title;
     }
 
+    function getNotice() {
+      const contractNode = nodeHelper.getContractNode(contract);
+      const documentation = contractNode.documentation;
+      const noticeText = documentationHelper.get(documentation, "notice");
+
+      const notice = noticeText.replace("\n", "<br/>")
+
+      return notice;
+    }
+
     function getAbi() {
       const builder = [];
       builder.push("## ");
@@ -88,12 +98,11 @@ module.exports = {
 
     const contractNode = nodeHelper.getContractNode(contract);
     const documentation = contractNode.documentation;
-    const notice = documentationHelper.getNotice(documentation);
 
     template = template.replace(/{{ContractName}}/g, contract.contractName);
     template = template.replace("{{ContractPath}}", getContractPath());
     template = template.replace("{{ContractTitle}}", getTitle());
-    template = template.replace("{{ContractDescription}}", notice);
+    template = template.replace("{{ContractDescription}}", getNotice());
     template = template.replace("{{ContractInheritancePath}}", getInheritancePath());
     template = template.replace("{{ContractImplementations}}", getImplementation());
 

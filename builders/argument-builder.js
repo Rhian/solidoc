@@ -14,6 +14,7 @@ module.exports = {
       const parameter = parameters[i];
       let paramType = "";
       let description = "";
+
       parameter.typeDescriptions.typeString.match(/struct/)
       ? paramType = structHelper.getStructLink(parameter.typeDescriptions.typeString.split(" ")[1])
       : paramType = parameter.typeDescriptions.typeString;
@@ -26,8 +27,6 @@ module.exports = {
       description = documentationHelper.get(documentation, "param " + parameter.name);
 
       description.replace(" - ", "").trim();
-      description.replace("- ", "");
-      builder.push(`${description} | \n`);
       
       builder.push(description.replace("- ", ""));
       builder.push(" | ");
