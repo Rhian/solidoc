@@ -49,21 +49,21 @@ module.exports = {
       }
       return res;
     }
-    const returnInfo = b;
+    const returnInfo = b.split("\n");
     const returnParamsArr = sliceIntoChunks(returnParams, 2);
-    const returnInfoArr = sliceIntoChunks(returnInfo, 2);
+    let returnInfoArr;
+
+    returnInfo.length > 1 ? returnInfoArr = sliceIntoChunks(returnInfo, 2) : returnInfoArr = returnInfo
 
     function returnMarkdown(arr, arr2) {
       let description = "";
       let fullName;
       let type;
 
-      (arr2 && arr2[0].includes(arr[0])) ? description = arr2[1] : description = "";
-
       if (arr[1].includes("struct") && arr2 && arr2[1]) {
           description = arr2[1].replace(/\{(.+?)\}/, `{${structHelper.getStructLink(arr[0])}}`);
           type = structHelper.getStructLink(arr[0]);
-          fullName =  arr2[0].split(",")[0];
+          fullName =  arr2[0];
       } else if (arr[1].includes("struct") && arr2 && !arr2[0] === "") {
           fullName = arr2[0];
           type = structHelper.getStructLink(arr[0]);
@@ -73,9 +73,11 @@ module.exports = {
         } else if (dataTypes.some(x => x.test(arr[0]))) {
           fullName = " ";
           type = arr[0].concat(` ${arr[1]}`);
+          (arr2 && arr2[0].trim().match(arr[0])) ? description = arr2[1] : description = "";
       } else {
           fullName = arr[0];
           type = arr[1];
+          (arr2 && arr2[0].trim().match(arr[0])) ? description = arr2[1] : description = "";
       }
       return arr.length < 2 ? fullName :  `\n| ${fullName} | ${type} | ${description} |`
     }
