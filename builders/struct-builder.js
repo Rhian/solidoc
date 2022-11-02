@@ -12,16 +12,16 @@ module.exports = {
     builder.push(`### ${node.name}`);
     builder.push("\n");
     builder.push("\n");
-    builder.push("```js");
+    builder.push("```solidity");
     builder.push("\n");
     builder.push(`struct ${node.name} {`);
-    builder.push("\n");
+    builder.push("\n ");
 
     const members = enumerable.from(node.members).select(function(x) {
-      return ` ${x.typeDescriptions.typeString} ${x.name}`;
+      return ` ${x.typeDescriptions.typeString} ${x.name}`.replace("enum ", "").replace("struct ", "");
     }).toArray();
 
-    builder.push(members.join("," + "\n"));
+    builder.push(members.join("," + "\n" + " "));
 
     builder.push("\n");
 

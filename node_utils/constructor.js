@@ -4,7 +4,9 @@ const enumerable = require("linq");
 module.exports = {
   getConstructorNode: function(contract) {
     var constructorNode = enumerable.from(contract.ast.nodes).where(function(x) {
-      return x.isConstructor;
+      if(x.kind && x.kind == "constructor") {
+        return x.kind;
+      }
     }).firstOrDefault();
 
     if(constructorNode) {
@@ -15,7 +17,9 @@ module.exports = {
       const node = contract.ast.nodes[i];
 
       constructorNode = enumerable.from(node.nodes).where(function(x) {
-        return x.isConstructor;
+        if(x.kind && x.kind == "constructor") {
+          return x.kind;
+        }
       }).firstOrDefault();
 
       if(constructorNode) {

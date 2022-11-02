@@ -1,7 +1,7 @@
 {
-  "name": "@thinkanddev/solidoc",
-  "version": "3.0.1",
-  "description": "Solidity Documentation Generator",
+  "name": "@bosonprotocol/solidoc",
+  "version": "3.0.2",
+  "description": "Solidity Documentation Generator forked from @thinkanddev/solidoc",
   "main": "cli.js",
   "scripts": {
     "start": "node cli.js ./ ./docs/contract false"
@@ -33,13 +33,14 @@
   ],
   "author": "Think And Dev",
   "contributors": [
-    "shanshi (https://github.com/shanshi)"
+    "shanshi (https://github.com/shanshi)",
+    "rhian (https://github.com/rhian)"
   ],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/Think-and-Dev/solidoc",
+  "homepage": "https://github.com/bosonprotocol/solidoc",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Think-and-Dev/solidoc.git"
+    "url": "git+https://github.com/bosonprotocol/solidoc.git"
   },
   "dependencies": {
     "fs-extra": "^7.0.0",
@@ -51,6 +52,6 @@
   },
   "devDependencies": {},
   "bugs": {
-    "url": "https://github.com/Think-and-Dev/solidoc/issues"
+    "url": "https://github.com/bosonprotocol/solidoc/issues"
   }
 }

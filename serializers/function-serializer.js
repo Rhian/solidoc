@@ -33,6 +33,9 @@ module.exports = {
     const functionList = enumerable.from(functionNodes).select(function(x) {
       const parameters = x.parameters.parameters || [];
       const parameterList = [];
+      if(x.kind !== "function") {
+        x.name = x.kind;
+      }
 
       for(let i in parameters) {
         const parameter = parameters[i];
@@ -44,10 +47,13 @@ module.exports = {
       return `- [${x.name}(${parameterList.join(", ")})](#${(!x.name)?contract.contractName.toLowerCase().concat('sol'):x.name.toLowerCase()})`;
     }).toArray();
 
-    template = template.replace("{{FunctionTitle}}", i18n.translate("Functions"));
+    template = template.replace("{{FunctionTitle}}", `## ${i18n.translate("Functions")}`);
 
     for(let i in functionNodes) {
       const node = functionNodes[i];
+      if(node.kind !== "function") {
+        node.name = node.kind;
+      }
 
       let functionTemplate = templateHelper.FunctionTemplate;
       const description = documentationHelper.getNotice(node.documentation);
@@ -64,10 +70,6 @@ module.exports = {
       functionTemplate = functionTemplate.replace("{{References}}", references);
       functionTemplate = functionTemplate.replace("{{FunctionDescription}}", description);
       functionTemplate = functionTemplate.replace("{{FunctionCode}}", functionCode);
-      functionTemplate = functionTemplate.replace("{{FunctionArguments}}", args);
-
-      functionTemplate = functionTemplate.replace("{{TableHeader}}", parameters ? templateHelper.TableHeaderTemplate : "");
-      functionTemplate = functionTemplate.replace("{{FunctionArgumentsHeading}}", parameters ? `**${i18n.translate("Arguments")}**` : "");
 
       definitionList.push(functionTemplate);
     }

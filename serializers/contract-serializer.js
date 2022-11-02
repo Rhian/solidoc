@@ -14,13 +14,19 @@ module.exports = {
       const documentation = contractNode.documentation;
       const contractTitle = documentationHelper.get(documentation, "title");
 
-      let title = `${contract.contractName}.sol`;
-
-      if(contractTitle) {
-        title = `${contractTitle.replace("\r\n", "\n")} (${contract.contractName}.sol)`;
-      }
+      let title = `${contract.contractName}`;
 
       return title;
+    }
+
+    function getNotice() {
+      const contractNode = nodeHelper.getContractNode(contract);
+      const documentation = contractNode.documentation;
+      const noticeText = documentationHelper.get(documentation, "notice");
+
+      const notice = noticeText.replace("\n", "<br/>")
+
+      return notice;
     }
 
     function getAbi() {
@@ -50,7 +56,7 @@ module.exports = {
       for(let i in contracts) {
         const contract = contracts[i];
 
-        const anchor = `* [${contract.contractName}](${contract.contractName}.md)`;
+        const anchor = `* ${contract.contractName}`;
         anchors.push(anchor);
       }
 
@@ -63,7 +69,7 @@ module.exports = {
 
       for(let i in dependencies) {
         const dependency = dependencies[i];
-        dependencyList.push(`[${dependency.baseName.name}](${dependency.baseName.name}.md)`);
+        dependencyList.push(`${dependency.baseName.name}`);
       }
 
       if(dependencyList && dependencyList.length) {
@@ -80,7 +86,7 @@ module.exports = {
       for(let i in implementations) {
         const implementation = implementations[i];
 
-        implementationList.push(`[${implementation.contractName}](${implementation.contractName}.md)`);
+        implementationList.push(`${implementation.contractName}`);
       }
 
       if(implementationList && implementationList.length) {
@@ -92,12 +98,11 @@ module.exports = {
 
     const contractNode = nodeHelper.getContractNode(contract);
     const documentation = contractNode.documentation;
-    const notice = documentationHelper.getNotice(documentation);
 
     template = template.replace(/{{ContractName}}/g, contract.contractName);
     template = template.replace("{{ContractPath}}", getContractPath());
     template = template.replace("{{ContractTitle}}", getTitle());
-    template = template.replace("{{ContractDescription}}", notice);
+    template = template.replace("{{ContractDescription}}", getNotice());
     template = template.replace("{{ContractInheritancePath}}", getInheritancePath());
     template = template.replace("{{ContractImplementations}}", getImplementation());
 

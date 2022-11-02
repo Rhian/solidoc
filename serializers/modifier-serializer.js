@@ -5,6 +5,7 @@ const templateHelper = require("../helpers/template-helper");
 const documentationHelper = require("../helpers/documentation-helper");
 const argumentBuilder = require("../builders/argument-builder");
 const codeBuilder = require("../builders/modifier-code-builder");
+const structHelper = require("../helpers/struct-helper");
 const i18n = require("../i18n");
 
 module.exports = {
@@ -34,10 +35,21 @@ module.exports = {
       const node = modifierNodes[i];
 
       let modifierTemplate = templateHelper.ModifierTemplate;
-      const description = documentationHelper.getNotice(node.documentation);
-
-      modifierTemplate = modifierTemplate.replace("{{ModifierArgumentsHeading}}", `**${i18n.translate("Arguments")}**`);
-      modifierTemplate = modifierTemplate.replace("{{TableHeader}}", templateHelper.TableHeaderTemplate);
+      const descriptionText = documentationHelper.getNotice(node.documentation);
+      const structText = descriptionText.match(/{(.*)}/)[0];
+      const linkedText = structText.replace(/{|}/g, '');
+      const description = descriptionText.replace(linkedText, structHelper.getStructLink(linkedText));
+      
+      if (node.parameters.parameters.length > 0) {
+        modifierArgsList = argumentBuilder.build(node.documentation, node.parameters.parameters);
+      }
+      if (node.parameters.parameters.length > 0) {
+        modifierTemplate = modifierTemplate.replace("{{ModifierArgumentsHeading}}", `**${i18n.translate("Arguments")}**`);
+        modifierTemplate = modifierTemplate.replace("{{TableHeader}}", templateHelper.TableHeaderTemplate);
+      } else {
+        modifierTemplate = modifierTemplate.replace("{{ModifierArgumentsHeading}}", "");
+        modifierTemplate = modifierTemplate.replace("{{TableHeader}}", "");
+      }
       modifierTemplate = modifierTemplate.replace("{{ModifierNameHeading}}", `### ${node.name}`);
       modifierTemplate = modifierTemplate.replace("{{ModifierDescription}}", description);
       modifierTemplate = modifierTemplate.replace("{{ModifierCode}}", codeBuilder.build(node));
