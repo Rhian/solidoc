@@ -33,12 +33,16 @@ module.exports = {
 
     for(let i in modifierNodes) {
       const node = modifierNodes[i];
+      let structText = "";
 
       let modifierTemplate = templateHelper.ModifierTemplate;
       const descriptionText = documentationHelper.getNotice(node.documentation);
-      const structText = descriptionText.match(/{(.*)}/)[0];
       const linkedText = structText.replace(/{|}/g, '');
       const description = descriptionText.replace(linkedText, structHelper.getStructLink(linkedText));
+
+      if (descriptionText.length > 0) {
+        structText = descriptionText.match(/{(.*)}/)[0];
+      }
       
       if (node.parameters.parameters.length > 0) {
         modifierArgsList = argumentBuilder.build(node.documentation, node.parameters.parameters);
